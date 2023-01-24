@@ -1,0 +1,52 @@
+<div>
+  <div class="submit-form">
+    <h4>Add a new Booking</h4>
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="title">Enter a title for your booking</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          required
+          [(ngModel)]="booking.id"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label>Select a start date and time:</label>
+        <div class="form-check form-switch form-group">
+          <input
+            type="datetime-local"
+            class="form-check-input"
+            id="startDate"
+            [(ngModel)]="booking.arrival"
+            name="startDate"
+          />
+          <label class="form-check-label"
+                 for="startDate">Start Date</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Select an end date and time:</label>
+        <div class="form-check form-switch form-group">
+          <input
+            type="datetime-local"
+            class="form-check-input"
+            id="endDate"
+            [(ngModel)]="booking.checkout"
+            name="endDate"
+          />
+          <label class="form-check-label"
+                 for="endDate">End Date</label>
+        </div>
+      </div>
+      <button (click)="addRoom()" class="btn text-white bg-dark mt-3">Add date</button>
+      <button (click)="saveBooking()" class="btn text-white bg-dark mt-3 ml-1">Submit</button>
+      <div *ngIf="submitted">
+        <h4>Booking was submitted successfully!</h4>
+        <button class="btn btn-success" (click)="newBooking()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

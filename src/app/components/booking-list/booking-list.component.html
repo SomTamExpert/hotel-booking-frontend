@@ -1,0 +1,79 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="mb-3" *ngIf="this.currentUser == null">
+      <h4>Hi Guest</h4>
+      <p>You're not logged in</p>
+    </div>
+    <div class="mb-3" *ngIf="this.currentUser.username != null">
+      <h4>Hi {{currentUser.firstname}} </h4>
+      <p>You're logged in as {{ this.role}}</p>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by name"
+        [(ngModel)]="title"
+        (keyup)="searchName()"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchName()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Booking(s)</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let booking of bookings; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="selectBooking(booking, i)"
+      >
+        {{ booking.id }}
+      </li>
+    </ul>
+    <button class="mt-3 ml-2 btn btn-sm text-white bg-dark" (click)="retrieveBookingsByUsername()">
+      Get All Bookings
+    </button>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentBooking.id">
+      <h4>Selected Booking</h4>
+      <div>
+        <label><strong>Id:</strong></label> {{ currentBooking.id }}
+      </div>
+      <div *ngIf="currentBooking.status">
+        <label><strong>Status:</strong></label>
+        {{ currentBooking.status.status }}
+      </div>
+        <div class="mb-2">
+          {{formatDateTime(currentBooking.arrival)}} - {{formatDateTime(currentBooking.checkout)}}
+        </div>
+
+      <a class="badge text-white badge-secondary mr-2" routerLink="/bookings/{{ currentBooking.id }}">
+        Edit
+      </a>
+      <div *ngIf="isAdmin">
+        <a class="badge text-white badge-success" (click)="confirmBooking()">
+          Confirm
+        </a>
+      </div>
+      <a class="badge text-white badge-danger" (click)="cancelBooking()">
+        {{ !isAdmin ? "Request for Cancellation" : "Cancel" }}
+      </a>
+    </div>
+    <div *ngIf="!currentBooking.id">
+      <br/>
+      <p>Please click on a booking to view details</p>
+    </div>
+  </div>
+</div>

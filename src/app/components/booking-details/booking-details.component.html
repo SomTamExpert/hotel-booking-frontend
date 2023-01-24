@@ -1,0 +1,60 @@
+<div>
+  <div *ngIf="currentBooking.id" class="edit-form">
+    <h4>Edit Current Booking</h4>
+    <form>
+      <div class="form-group">
+        <label for="arrival">Arrival</label>
+        <input
+          type="text"
+          class="form-control"
+          id="arrival"
+          [(ngModel)]="currentBooking.arrival"
+          name="title"
+        />
+      </div>
+      <div class="form-group" *ngIf="currentBooking.status">
+        <label for="status">Status</label>
+        <input
+          type="text"
+          class="form-control"
+          id="status"
+          [(ngModel)]="currentBooking.status.status"
+          name="status"
+          readonly
+        />
+      </div>
+    </form>
+    <div class="row mx-auto">
+      <button
+        class="badge text-white badge-danger mr-2"
+        *ngIf="currentBooking.status  && currentBooking.status.status === 'pending'"
+        (click)="cancelBooking()"
+      >
+        {{ !isAdmin ? "Request for Cancellation" : "Cancel" }}
+      </button>
+      <div *ngIf="isAdmin">
+        <button class="badge text-white badge-dark mr-2" (click)="removeBooking()">
+          Delete
+        </button>
+      </div>
+      <button
+        type="submit"
+        class="badge text-white badge-info  mr-2"
+        (click)="updateBooking()"
+      >
+        Update
+      </button>
+      <div *ngIf="isAdmin">
+        <button class="badge text-white badge-success" (click)="confirmBooking()">
+          Confirm
+        </button>
+      </div>
+    </div>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentBooking.id">
+    <br/>
+    <p>Cannot access this booking</p>
+  </div>
+</div>
