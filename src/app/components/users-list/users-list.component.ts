@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../models/user.model";
 import {UserService} from "../../services/user.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-users-list',
@@ -12,15 +13,16 @@ export class UsersListComponent implements OnInit {
   users?: User[];
   currentUser: User = {};
   currentIndex = -1;
-  isAdmin = true;
+  isAdmin = false;
   userName = ""
   loggedUser: any = {};
 
-  constructor(private userService: UserService,) {
+  constructor(private userService: UserService, private storageService: StorageService ) {
   }
 
   ngOnInit(): void {
     this.retrieveUsers();
+    this.loggedUser = this.storageService.getUser();
     if (this.loggedUser.role == "ADMIN") {
       this.isAdmin = true;
     }

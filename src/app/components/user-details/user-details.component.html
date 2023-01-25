@@ -1,1 +1,76 @@
-<p>user-details works!</p>
+<div>
+  <div *ngIf="currentUser.id" class="edit-form">
+    <h4>Edit Current User</h4>
+    <form>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          [(ngModel)]="currentUser.firstname"
+          name="firstName"
+        />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          [(ngModel)]="currentUser.lastname"
+          name="lastName"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          [(ngModel)]="currentUser.email"
+          name="email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="text"
+          class="form-control"
+          id="password"
+          [(ngModel)]="currentUser.password"
+          name="password"
+        />
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <input
+          type="text"
+          class="form-control"
+          id="role"
+          [(ngModel)]="currentUser.role"
+          name="role"
+        />
+      </div>
+
+    </form>
+
+    <button class="badge text-white bg-dark mr-2" (click)="removeUser()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge text-white bg-dark mb-2"
+      (click)="updateUser()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentUser.id">
+    <br/>
+    <p>Cannot access this user</p>
+  </div>
+</div>
