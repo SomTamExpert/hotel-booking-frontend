@@ -14,7 +14,7 @@ export class UsersListComponent implements OnInit {
   currentUser: User = {};
   currentIndex = -1;
   isAdmin = false;
-  userName = ""
+  lastname = ""
   loggedUser: any = {};
 
   constructor(private userService: UserService, private storageService: StorageService ) {
@@ -64,10 +64,10 @@ export class UsersListComponent implements OnInit {
         });
   }
 
-  searchUsername(): void {
+  searchUser(): void {
     this.currentUser = {};
     this.currentIndex = -1;
-    this.userService.getUsersByUsername(this.userName)
+    this.userService.getUsersByLastName(this.lastname)
       .subscribe(
         data => {
           this.users = data;

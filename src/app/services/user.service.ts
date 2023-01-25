@@ -20,8 +20,8 @@ export class UserService {
   updateUser(id: number | undefined, user: User): Observable<User> {
     return this.httpClient.put<User>(this.baseURL + "/" + id, user);
   }
-  getUsersByUsername(username: string): Observable<User[]> {
-    return this.httpClient.get<User[]>(this.baseURL + "/username?username=" + username);
+  getUsersByLastName(lastName: string): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.baseURL + "/search/" + lastName);
   }
 
   deleteUser(id: number | undefined): Observable<any> {
