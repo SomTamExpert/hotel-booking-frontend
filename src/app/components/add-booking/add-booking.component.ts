@@ -4,6 +4,9 @@ import {Router} from "@angular/router";
 import {Booking} from "../../models/booking.model";
 import {Status} from "../../models/status.model";
 import {StorageService} from "../../services/storage.service";
+import {User} from "../../models/user.model";
+import {Room} from "../../models/room.model";
+import {RoomService} from "../../services/room.service";
 
 @Component({
   selector: 'app-add-booking',
@@ -12,14 +15,12 @@ import {StorageService} from "../../services/storage.service";
 })
 export class AddBookingComponent implements OnInit {
 
-  constructor(private bookingService: BookingService, private localStorage: StorageService, private router: Router) {
+  constructor(private roomService: RoomService, private bookingService: BookingService, private localStorage: StorageService, private router: Router) {
   }
 
-  ;
-
-  currenUser: any;
-  booking: Booking = {
-  }
+  currenUser: User = {};
+  booking: Booking = {};
+  rooms?: Room[];
 
   status: Status = {
     id: 1,
@@ -30,16 +31,18 @@ export class AddBookingComponent implements OnInit {
 
   ngOnInit(): void {
     this.currenUser = this.localStorage.getUser();
+    this.retrieveRooms();
   }
 
   saveBooking(): void {
     const data = {
-      arrival: this.booking.arrival,
-      departure: this.booking.checkout,
+      arrival: new Date(),
+      checkout: new Date(),
       breakfast: this.booking.breakfast,
       comment: this.booking.comment,
       room: this.booking.room,
       status: this.status,
+      user: this.currenUser
     };
     console.log("booking date to save", data);
     this.bookingService.createBooking(data)
@@ -52,7 +55,7 @@ export class AddBookingComponent implements OnInit {
           console.log(error);
         });
     setTimeout(() => {
-      this.router.navigate(['/bookings/user/' + this.currenUser.username]);
+      this.router.navigate(['/bookings/user/' + this.currenUser.email]);
 
     }, 500);
   }
@@ -60,8 +63,19 @@ export class AddBookingComponent implements OnInit {
 
   newBooking(): void {
     this.submitted = false;
-    this.booking = {
-    };
+    this.booking = {};
+  }
+
+  retrieveRooms(): void {
+    this.roomService.getAllRooms()
+      .subscribe(
+        data => {
+          this.rooms = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
 

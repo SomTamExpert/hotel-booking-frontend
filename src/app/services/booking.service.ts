@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Booking} from "../models/booking.model";
+import {Room} from "../models/room.model";
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,10 @@ export class BookingService {
 
   getAllBookings(): Observable<Booking[]> {
     return this.httpClient.get<Booking[]>(this.baseURL);
+  }
+
+  getAllRooms(): Observable<Room[]> {
+    return this.httpClient.get<Room[]>(this.baseURL + "/rooms");
   }
 
 }
