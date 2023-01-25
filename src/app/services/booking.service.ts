@@ -46,4 +46,8 @@ export class BookingService {
     return this.httpClient.put(this.baseURL + "/confirm/" + id, booking);
   }
 
+  getAllBookings(): Observable<Booking[]> {
+    return this.httpClient.get<Booking[]>(this.baseURL);
+  }
+
 }

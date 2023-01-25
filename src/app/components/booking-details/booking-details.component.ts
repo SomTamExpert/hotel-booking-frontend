@@ -53,6 +53,7 @@ export class BookingDetailsComponent implements OnInit {
       breakfast: this.currentBooking.breakfast,
       comment: this.currentBooking.comment,
       status: this.currentBooking.status,
+      room: this.currentBooking.room,
     }
     this.bookingService.updateBooking(this.currentBooking.id, data)
       .subscribe(

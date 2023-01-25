@@ -6,6 +6,7 @@ import {AddUserComponent} from "./components/add-user/add-user.component";
 import {BookingDetailsComponent} from "./components/booking-details/booking-details.component";
 import {BookingListComponent} from "./components/booking-list/booking-list.component";
 import {LoginComponent} from "./components/login/login.component";
+import {AddBookingComponent} from "./components/add-booking/add-booking.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: "bookings", component: BookingListComponent },
   { path: "bookings/:id", component: BookingDetailsComponent },
   { path: "bookings/user/:username", component: BookingListComponent },
+  { path: "book-now", component: AddBookingComponent },
   {path: "login", component: LoginComponent}
 
 ];

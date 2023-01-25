@@ -9,7 +9,27 @@
           class="form-control"
           id="arrival"
           [(ngModel)]="currentBooking.arrival"
-          name="title"
+          name="arrival"
+        />
+      </div>
+      <div class="form-group">
+        <label for="checkout">Checkout</label>
+        <input
+          type="text"
+          class="form-control"
+          id="checkout"
+          [(ngModel)]="currentBooking.checkout"
+          name="checkout"
+        />
+      </div>
+      <div class="form-group">
+        <label for="breakfast">Breakfast included</label>
+        <input
+          type="text"
+          class="form-control"
+          id="breakfast"
+          [(ngModel)]="currentBooking.breakfast"
+          name="checkout"
         />
       </div>
       <div class="form-group" *ngIf="currentBooking.status">
@@ -23,11 +43,55 @@
           readonly
         />
       </div>
+      <div class="form-group" *ngIf="currentBooking.room">
+        <label for="room-price">Room Price</label>
+        <input
+          type="text"
+          class="form-control"
+          id="room-price"
+          [(ngModel)]="currentBooking.room.price"
+          name="room-price"
+          readonly
+        />
+      </div>
+      <div class="form-group" *ngIf="currentBooking.room">
+        <label for="room-number">Room Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="room-number"
+          [(ngModel)]="currentBooking.room.number"
+          name="room-number"
+          readonly
+        />
+      </div>
+      <div class="form-group" *ngIf="currentBooking.room">
+        <label for="room-capacity">Room Capacity</label>
+        <input
+          type="text"
+          class="form-control"
+          id="room-capacity"
+          [(ngModel)]="currentBooking.room.capacity"
+          name="room-capacity"
+          readonly
+        />
+      </div>
+      <div class="form-group" *ngIf="currentBooking.room">
+        <label for="room-balcony">Balcony</label>
+        <input
+          type="text"
+          class="form-control"
+          id="room-balcony"
+          [(ngModel)]="currentBooking.room.balcony"
+          name="room-number"
+          readonly
+        />
+      </div>
     </form>
     <div class="row mx-auto">
       <button
         class="badge text-white badge-danger mr-2"
-        *ngIf="currentBooking.status  && currentBooking.status.status === 'pending'"
+        *ngIf="currentBooking.status  && currentBooking.status.status === 'booked'"
         (click)="cancelBooking()"
       >
         {{ !isAdmin ? "Request for Cancellation" : "Cancel" }}
@@ -44,7 +108,7 @@
       >
         Update
       </button>
-      <div *ngIf="isAdmin">
+      <div *ngIf="isAdmin && currentBooking.status  && currentBooking.status.status === 'pending'">
         <button class="badge text-white badge-success" (click)="confirmBooking()">
           Confirm
         </button>

@@ -28,19 +28,23 @@ export class BookingListComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.localStorage.getUser();
     console.log("current user ", this.currentUser);
-    this.retrieveBookingsByUsername();
+    if (this.currentUser.role !== "ADMIN") {
+      this.retrieveBookingsByUsername();
+    }
     this.role = this.currentUser.role.toLowerCase();
     if (this.currentUser.role == "ADMIN") {
       this.isAdmin = true;
+      this.retrieveAllBookings();
     }
   }
+
   selectBooking(booking: Booking, index: number): void {
     this.currentBooking = booking;
     this.currentIndex = index;
   }
 
   retrieveBookingsByUsername(): void {
-    console.log(this.currentUser.email);
+    console.log("retrieve bookings by username");
     this.bookingService.getBookingsByUsername(this.currentUser.email)
       .subscribe(
         data => {
@@ -52,6 +56,21 @@ export class BookingListComponent implements OnInit {
         }
       )
   }
+
+  retrieveAllBookings(): void {
+    console.log("retrieve all bookings");
+    this.bookingService.getAllBookings()
+      .subscribe(
+        data => {
+          this.bookings = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+  }
+
   searchName(): void {
     this.currentBooking = {};
     this.currentIndex = -1;
@@ -66,6 +85,7 @@ export class BookingListComponent implements OnInit {
         }
       )
   }
+
   cancelBooking(): void {
     this.bookingService.cancelBooking(this.currentBooking.id, this.currentBooking)
       .subscribe(
@@ -89,9 +109,10 @@ export class BookingListComponent implements OnInit {
           console.log(error);
         });
   }
-  formatDateTime(date: Date | undefined ): string {
+
+  formatDateTime(date: Date | undefined): string {
     if (date) {
-      this.dateTimeString =  new Date(date).toLocaleDateString() + " " + new Date(date).toLocaleTimeString();
+      this.dateTimeString = new Date(date).toLocaleDateString() + " " + new Date(date).toLocaleTimeString();
       return this.dateTimeString;
     }
     return '';

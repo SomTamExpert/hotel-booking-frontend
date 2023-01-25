@@ -4,7 +4,7 @@
       <h4>Hi Guest</h4>
       <p>You're not logged in</p>
     </div>
-    <div class="mb-3" *ngIf="this.currentUser.username != null">
+    <div class="mb-3" *ngIf="this.currentUser.firstname != null">
       <h4>Hi {{currentUser.firstname}} </h4>
       <p>You're logged in as {{ this.role}}</p>
     </div>
@@ -55,21 +55,25 @@
         <label><strong>Status:</strong></label>
         {{ currentBooking.status.status }}
       </div>
-        <div class="mb-2">
-          {{formatDateTime(currentBooking.arrival)}} - {{formatDateTime(currentBooking.checkout)}}
-        </div>
+      <div class="mb-2">
+        {{formatDateTime(currentBooking.arrival)}} - {{formatDateTime(currentBooking.checkout)}}
+      </div>
 
       <a class="badge text-white badge-secondary mr-2" routerLink="/bookings/{{ currentBooking.id }}">
         Edit
       </a>
       <div *ngIf="isAdmin">
-        <a class="badge text-white badge-success" (click)="confirmBooking()">
-          Confirm
+        <div *ngIf="currentBooking.status  && currentBooking.status.status === 'pending'">
+          <a class="badge text-white badge-success" (click)="confirmBooking()">
+            Confirm
+          </a>
+        </div>
+      </div>
+      <div *ngIf="currentBooking.status  && currentBooking.status.status === 'booked'">
+        <a class="badge text-white badge-danger" (click)="cancelBooking()">
+          {{ !isAdmin ? "Request for Cancellation" : "Cancel" }}
         </a>
       </div>
-      <a class="badge text-white badge-danger" (click)="cancelBooking()">
-        {{ !isAdmin ? "Request for Cancellation" : "Cancel" }}
-      </a>
     </div>
     <div *ngIf="!currentBooking.id">
       <br/>
