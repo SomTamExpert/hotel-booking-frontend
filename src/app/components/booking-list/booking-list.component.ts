@@ -71,21 +71,6 @@ export class BookingListComponent implements OnInit {
       )
   }
 
-  searchName(): void {
-    this.currentBooking = {};
-    this.currentIndex = -1;
-    this.bookingService.getBookingsByTitle(this.currentUser.email, this.title)
-      .subscribe(
-        data => {
-          this.bookings = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        }
-      )
-  }
-
   cancelBooking(): void {
     this.bookingService.cancelBooking(this.currentBooking.id, this.currentBooking)
       .subscribe(

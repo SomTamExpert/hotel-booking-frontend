@@ -1,0 +1,65 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="mb-3" *ngIf="this.currentUser == null">
+      <h4>Hi Guest</h4>
+      <p>You're not logged in</p>
+    </div>
+    <div class="mb-3" *ngIf="this.currentUser.firstname != null">
+      <h4>Hi {{currentUser.firstname}} </h4>
+      <p>You're logged in as {{ this.role}}</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Categories</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let category of categories; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="selectCategory(category, i)"
+      >
+        {{ category.id }}
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <div *ngIf="currentCategory.id">
+      <h4>Selected Category</h4>
+      <div>
+        <label><strong>Id:</strong></label> {{ currentCategory.id }}
+      </div>
+      <div *ngIf="currentCategory.title">
+        <label><strong>Title:</strong></label>
+        {{ currentCategory.title }}
+      </div>
+      <div class="mb-2">
+        <strong>Description:</strong> {{currentCategory.description}}
+      </div>
+      <div class="mb-2">
+        <strong>Rating:</strong> {{currentCategory.rating}}
+      </div>
+      <div class="mb-2">
+        <strong>Rooms:</strong>
+        <ul class="list-group">
+          <li
+            class="list-group-item"
+            *ngFor="let room of currentCategory.rooms ; let i = index"
+          >
+            <strong>Id: </strong>{{ room.id }}
+            <strong>Room Number: </strong>{{ room.number }}
+            <strong>Price: </strong> {{ room.price }}
+            <strong>Capacity: </strong> {{ room.capacity }}
+            <strong>Balcony: </strong> {{ room.balcony }}
+          </li>
+        </ul>
+      </div>
+
+
+
+      <div *ngIf="!currentCategory.id">
+        <br/>
+        <p>Please click on a category to view details</p>
+      </div>
+    </div>
+  </div>
+</div>

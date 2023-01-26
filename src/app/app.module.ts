@@ -12,6 +12,7 @@ import {BookingDetailsComponent} from "./components/booking-details/booking-deta
 import {BookingListComponent} from "./components/booking-list/booking-list.component";
 import {AddBookingComponent} from "./components/add-booking/add-booking.component";
 import {LoginComponent} from "./components/login/login.component";
+import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {LoginComponent} from "./components/login/login.component";
     BookingListComponent,
     AddBookingComponent,
     BookingDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    CategoriesListComponent
   ],
   imports: [
     BrowserModule,

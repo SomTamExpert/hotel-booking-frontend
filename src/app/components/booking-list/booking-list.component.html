@@ -9,26 +9,6 @@
       <p>You're logged in as {{ this.role}}</p>
     </div>
   </div>
-  <div class="col-md-8">
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search by name"
-        [(ngModel)]="title"
-        (keyup)="searchName()"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchName()"
-        >
-          Search
-        </button>
-      </div>
-    </div>
-  </div>
   <div class="col-md-6">
     <h4>Booking(s)</h4>
     <ul class="list-group">
@@ -56,7 +36,13 @@
         {{ currentBooking.status.status }}
       </div>
       <div class="mb-2">
-        {{formatDateTime(currentBooking.arrival)}} - {{formatDateTime(currentBooking.checkout)}}
+        <strong>Arrival:</strong> {{formatDateTime(currentBooking.arrival)}}
+      </div>
+      <div class="mb-2">
+        <strong>Checkout:</strong> {{formatDateTime(currentBooking.checkout)}}
+      </div>
+      <div class="mb-2">
+        <strong>Breakfast Included:</strong> {{currentBooking.breakfast}}
       </div>
 
       <a class="badge text-white badge-secondary mr-2" routerLink="/bookings/{{ currentBooking.id }}">
@@ -69,7 +55,7 @@
           </a>
         </div>
       </div>
-      <div *ngIf="currentBooking.status  && currentBooking.status.status === 'booked'">
+      <div *ngIf="currentBooking.status  && currentBooking.status.status === 'pending' ">
         <a class="badge text-white badge-danger" (click)="cancelBooking()">
           {{ !isAdmin ? "Request for Cancellation" : "Cancel" }}
         </a>
